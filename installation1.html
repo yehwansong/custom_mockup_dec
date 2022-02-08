@@ -6,9 +6,14 @@ z<!DOCTYPE html>
 	<meta name="viewport" 
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
       <meta name="HandheldFriendly" content="true" />
+	<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
 	<script type="text/javascript">
 		if (location.protocol !== 'https:') {location.replace(`https:${location.href.substring(location.protocol.length)}`);}
 		$(document).ready(function(){
+    var fb_ready = false
+    onLoadFinish()
 			$('.lds-dual-ring').hide()
 			setTimeout(function(){
 				$('.alert').addClass('noalert')
@@ -96,6 +101,11 @@ z<!DOCTYPE html>
 									counter = 0
 									$('.img').addClass('not_act')
 								}
+								if(fb_ready){
+								                        setFirebaseValues({
+								                           counter : counter
+								                        });}
+
 		        document.bgColor = 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
 		      }
 		    }
@@ -122,6 +132,66 @@ z<!DOCTYPE html>
 
 					})();
  		});
+
+
+
+
+
+
+
+
+function onLoadFinish() {
+    console.log('onLoadFinish');
+const firebaseConfig = {
+
+    apiKey: "AIzaSyD6VDp-claJ8dGapcaBU6srl203H5NZvYc",
+  authDomain: "customellow-16c19.firebaseapp.com",
+  projectId: "customellow-16c19",
+  storageBucket: "customellow-16c19.appspot.com",
+  messagingSenderId: "216655320866",
+  appId: "1:216655320866:web:31117b30933646689c377b",
+  databaseURL: "https://customellow-16c19-default-rtdb.firebaseio.com/",
+  measurementId: "G-WW4LDYJY3M"
+};
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
+
+    window.setFirebaseValues = function (values) {
+        firebase.database().ref('values').update(values);
+    };
+
+    firebase.database().ref('values').on('value', function (snapshot) {
+        if (typeof window.firebaseValueChangeHandler !== 'function') {
+            return;
+        }
+        window.firebaseValueChangeHandler(snapshot.val());
+    }); // ready to go
+
+    if (typeof window.onFirebaseReady === 'function') {
+        window.onFirebaseReady();
+    } // empty value change queue
+
+
+    window.firebaseSetValuesQueue.forEach(function (values) {
+        window.setFirebaseValues(values);
+    });
+    window.firebaseSetValuesQueue = [];
+} // start loading firebase scripts
+
+var w = window.innerWidth
+var h = window.innerHeight
+var timeout
+var posy = 0
+var counter = 0
+        function onFirebaseReady() {fb_ready = true
+
+        }
+            function firebaseValueChangeHandler(values) {
+                     // $('.follower').css({
+                     //     top: values.posy - 50,
+                     //     left: values.posx - 50
+                     // });
+            }
 	</script>
 	<style type="text/css">
 		*{
