@@ -10,7 +10,7 @@ z<!DOCTYPE html>
 	<script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-analytics.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-database.js"></script>
 	<script type="text/javascript">
-		if (location.protocol !== 'https:') {location.replace(`https:${location.href.substring(location.protocol.length)}`);}
+		// if (location.protocol !== 'https:') {location.replace(`https:${location.href.substring(location.protocol.length)}`);}
 		$(document).ready(function(){
     var fb_ready = false
     onLoadFinish()
@@ -36,102 +36,102 @@ z<!DOCTYPE html>
 			  return array;
 			}
 
-			var counter = 0
-			var activated = false;
-					(async () => {
-						let volumeCallback = null;
-						let volumeInterval = null;
-						// Initialize
-						try {
-						const audioStream = await navigator.mediaDevices.getUserMedia({
-						  audio: {
-						    echoCancellation: true
-						  }
-						});
-						const audioContext = new AudioContext();
-						const audioSource = audioContext.createMediaStreamSource(audioStream);
-						const analyser = audioContext.createAnalyser();
+			// var counter = 0
+			// var activated = false;
+			// 		(async () => {
+			// 			let volumeCallback = null;
+			// 			let volumeInterval = null;
+			// 			// Initialize
+			// 			try {
+			// 			const audioStream = await navigator.mediaDevices.getUserMedia({
+			// 			  audio: {
+			// 			    echoCancellation: true
+			// 			  }
+			// 			});
+			// 			const audioContext = new AudioContext();
+			// 			const audioSource = audioContext.createMediaStreamSource(audioStream);
+			// 			const analyser = audioContext.createAnalyser();
 
 
-                console.log('heey')
+   //              console.log('heey')
 
-            const volume = audioContext.createGain(); // creates a gain node
-			const audioInput = audioContext.createMediaStreamSource(audioStream);
-            		audioInput.connect(volume);// connect the stream to the gain node
-            const recorder = audioContext.createScriptProcessor(2048, 1, 1);
-      		var recording = true;
+   //          const volume = audioContext.createGain(); // creates a gain node
+			// const audioInput = audioContext.createMediaStreamSource(audioStream);
+   //          		audioInput.connect(volume);// connect the stream to the gain node
+   //          const recorder = audioContext.createScriptProcessor(2048, 1, 1);
+   //    		var recording = true;
 
-            recorder.onaudioprocess = function(e){
-                if(!recording) return;
-                var left = e.inputBuffer.getChannelData(0);
-                //var right = e.inputBuffer.getChannelData(1);
-                detector(new Float32Array(left))
-                // callback(new Float32Array(left));
-            };
-            volume.connect(recorder);// connect the recorder
-            recorder.connect(audioContext.destination);
-
-
-		    var lastClap = (new Date()).getTime();
-
-		    function detectClap(data){
-		      var t = (new Date()).getTime();
-		      if(t - lastClap < 300) return false; // TWEAK HERE
-		      var zeroCrossings = 0, highAmp = 0;
-		      for(var i = 1; i < data.length; i++){
-		        if(Math.abs(data[i]) > 0.5) highAmp++; // TWEAK HERE
-		        if(data[i] > 0 && data[i-1] < 0 || data[i] < 0 && data[i-1] > 0) zeroCrossings++;
-		      }
-		      if(highAmp > 20 && zeroCrossings > 30){ // TWEAK HERE
-		        //console.log(highAmp+' / '+zeroCrossings);
-		        lastClap = t;
-		        return true;
-		      }
-		      return false;
-		    }
-
-		    function detector(data){
-		      if(detectClap(data)){
-		        console.log('clap!');
-				$('.alert').addClass('noalert')
-						  	if(counter<5){
-									counter++
-									$('.img_od_'+counter).removeClass('not_act')
-								}else{
-									counter = 0
-									$('.img').addClass('not_act')
-								}
-								// if(fb_ready){
-								                        setFirebaseValues({
-								                           count : counter
-								                        });
-								                    // }
-
-		        document.bgColor = 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
-		      }
-		    }
+   //          recorder.onaudioprocess = function(e){
+   //              if(!recording) return;
+   //              var left = e.inputBuffer.getChannelData(0);
+   //              //var right = e.inputBuffer.getChannelData(1);
+   //              detector(new Float32Array(left))
+   //              // callback(new Float32Array(left));
+   //          };
+   //          volume.connect(recorder);// connect the recorder
+   //          recorder.connect(audioContext.destination);
 
 
+		 //    var lastClap = (new Date()).getTime();
 
-						analyser.fftSize = 512;
-						analyser.minDecibels = -127;
-						analyser.maxDecibels = 0;
-						analyser.smoothingTimeConstant = 0.4;
-						audioSource.connect(analyser);
-						const volumes = new Uint8Array(analyser.frequencyBinCount);
-						} catch(e) {
-						console.error('Failed to initialize volume visualizer, simulating instead...', e);
-						// Simulation
-						//TODO remove in production!
-						let lastVolume = 50;
-							volumeCallback = () => {
-							  const volume = Math.min(Math.max(Math.random() * 100, 0.8 * lastVolume), 1.2 * lastVolume);
-							  lastVolume = volume;
-							};
-						}
+		 //    function detectClap(data){
+		 //      var t = (new Date()).getTime();
+		 //      if(t - lastClap < 300) return false; // TWEAK HERE
+		 //      var zeroCrossings = 0, highAmp = 0;
+		 //      for(var i = 1; i < data.length; i++){
+		 //        if(Math.abs(data[i]) > 0.5) highAmp++; // TWEAK HERE
+		 //        if(data[i] > 0 && data[i-1] < 0 || data[i] < 0 && data[i-1] > 0) zeroCrossings++;
+		 //      }
+		 //      if(highAmp > 20 && zeroCrossings > 30){ // TWEAK HERE
+		 //        //console.log(highAmp+' / '+zeroCrossings);
+		 //        lastClap = t;
+		 //        return true;
+		 //      }
+		 //      return false;
+		 //    }
+
+		 //    function detector(data){
+		 //      if(detectClap(data)){
+		 //        console.log('clap!');
+			// 	$('.alert').addClass('noalert')
+			// 			  	if(counter<5){
+			// 						counter++
+			// 						$('.img_od_'+counter).removeClass('not_act')
+			// 					}else{
+			// 						counter = 0
+			// 						$('.img').addClass('not_act')
+			// 					}
+			// 					// if(fb_ready){
+			// 					                        setFirebaseValues({
+			// 					                           count : counter
+			// 					                        });
+			// 					                    // }
+
+		 //        document.bgColor = 'rgb('+Math.random()*255+','+Math.random()*255+','+Math.random()*255+')';
+		 //      }
+		 //    }
 
 
-					})();
+
+			// 			analyser.fftSize = 512;
+			// 			analyser.minDecibels = -127;
+			// 			analyser.maxDecibels = 0;
+			// 			analyser.smoothingTimeConstant = 0.4;
+			// 			audioSource.connect(analyser);
+			// 			const volumes = new Uint8Array(analyser.frequencyBinCount);
+			// 			} catch(e) {
+			// 			console.error('Failed to initialize volume visualizer, simulating instead...', e);
+			// 			// Simulation
+			// 			//TODO remove in production!
+			// 			let lastVolume = 50;
+			// 				volumeCallback = () => {
+			// 				  const volume = Math.min(Math.max(Math.random() * 100, 0.8 * lastVolume), 1.2 * lastVolume);
+			// 				  lastVolume = volume;
+			// 				};
+			// 			}
+
+
+			// 		})();
  		});
 
 
@@ -189,10 +189,15 @@ var counter = 0
 
         }
             function firebaseValueChangeHandler(values) {
-                     // $('.follower').css({
-                     //     top: values.posy - 50,
-                     //     left: values.posx - 50
-                     // });
+
+									for (var i = 5; i >= 1; i--) {
+										if(i>values.count){
+									$('.img_od_'+values.count).addClass('not_act')
+
+										}else{
+									$('.img_od_'+values.count).removeClass('not_act')
+										}
+									}
             }
 	</script>
 	<style type="text/css">
@@ -203,7 +208,7 @@ var counter = 0
 		body,html{
 			touch-action: none;
 			width: 100vw;
-			height: 100%;
+			height: 300%;
 		}
 		body{
 			background-color:  #A2ACAB;
@@ -382,6 +387,13 @@ var counter = 0
   border-color: #fff transparent #fff transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
+.wrap{
+	position: absolute;
+	left: 0;
+	top: 100vh;
+	width: 100%;
+	height: 300vh
+}
 @keyframes lds-dual-ring {
   0% {
     transform: rotate(0deg);
@@ -389,13 +401,6 @@ var counter = 0
   100% {
     transform: rotate(360deg);
   }
-}
-.wrap{
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 300vh
 }
 	</style>
 </head>
@@ -420,7 +425,6 @@ var counter = 0
 	<img class="not_act img img_11 img_od_4" src="img/img_11.png">
 	<img class="not_act img img_12 img_od_5" src="img/img_12.png">
 	<img class="not_act img img_13 img_od_5" src="img/img_13.png">
-	<img class="not_act img img_14 img_od_5" src="img/img_14.png">
-</div>
+	<img class="not_act img img_14 img_od_5" src="img/img_14.png"></div>
 </body>
 </html>
