@@ -171,10 +171,11 @@ const firebaseConfig = {
         window.onFirebaseReady();
     } // empty value change queue
 
-
-    window.firebaseSetValuesQueue.forEach(function (values) {
-        window.setFirebaseValues(values);
-    });
+    if(window.firebaseSetValuesQueue){
+        window.firebaseSetValuesQueue.forEach(function (values) {
+            window.setFirebaseValues(values);
+        });
+    }
     window.firebaseSetValuesQueue = [];
 } // start loading firebase scripts
 
