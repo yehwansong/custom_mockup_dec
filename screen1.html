@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<meta name="viewport" 
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+      <meta name="HandheldFriendly" content="true" />
+	<script type="text/javascript">
+		$(document).ready(function(){
+			get_time()
+			function get_time(){
+				var value1 = (Math.floor(new Date().getMilliseconds()%200/3))%30
+				var value2 = (Math.floor(new Date().getMilliseconds()%200/3)+5)%30
+				var value3 = (Math.floor(new Date().getMilliseconds()%200/3)+10)%30
+				var value4 = (Math.floor(new Date().getMilliseconds()%200/3)+15)%30
+				console.log(value1)
+				console.log(value2)
+				$('.img').css({'opacity':0})
+				if(value1>2){
+					$('.img-'+value1).css({'opacity':1})
+				}
+				if(value2>2){
+					$('.img-'+value2).css({'opacity':1})
+				}
+				if(value3>2){
+					$('.img-'+value3).css({'opacity':1})
+				}
+				if(value4>2){
+					$('.img-'+value4).css({'opacity':1})
+				}
+				setTimeout(function(){
+					get_time()
+				},200)
+			}
+		})
+	</script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		body,html{
+			touch-action: none;
+			width: 100vw;
+			height: 100%;
+		}
+		body{ background: linear-gradient(#e9ff00 18.91%, rgb(252, 8, 0) 74.79%, rgb(255, 8, 0) 95.38%, rgb(0, 0, 0) 99.16%); }
+		.img{
+			width: 100vw;
+			height: 100%;
+			background-size: 100%;
+			background-position: left top;
+transform: scaleX(1) scaleY(1);
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0
+		}
+		.img-02{background-image:url(stone/st-02.png);
+transform: scaleX(1) scaleY(1);
+opacity: 1 !important}
+		.img-15{background-image:url(stone/st-15.png);}
+		.img-16{background-image:url(stone/st-16.png);}
+		.img-17{background-image:url(stone/st-17.png);}
+		.img-18{background-image:url(stone/st-18.png);}
+		.img-19{background-image:url(stone/st-19.png);}
+		.img-20{background-image:url(stone/st-20.png);}
+		.img-21{background-image:url(stone/st-21.png);}
+		.img-22{background-image:url(stone/st-22.png);}
+		.img-23{background-image:url(stone/st-23.png);}
+		.img-24{background-image:url(stone/st-24.png);}
+		.img-25{background-image:url(stone/st-25.png);}
+		.img-26{background-image:url(stone/st-26.png);}
+		.img-27{background-image:url(stone/st-27.png);}
+		.img-28{background-image:url(stone/st-28.png);}
+		.img-29{background-image:url(stone/st-29.png);}
+.img-03, .img-04, .img-05, .img-06, .img-07, .img-08, .img-09, .img-10, .img-11, .img-12, .img-13, .img-14, .img-15, .img-16, .img-17, .img-18, .img-19, .img-20, .img-21, .img-22, .img-23, .img-24, .img-25, .img-26, .img-27, .img-28, .img-29{ 
+		mix-blend-mode:difference;
+		transition: 0.2s}
+	</style>
+</head>
+<body>
+	<div class="img img-01"></div> 
+	<div class="img img-02"></div> 
+	<div class="img img-03"></div> 
+	<div class="img img-04"></div> 
+	<div class="img img-05"></div> 
+	<div class="img img-06"></div> 
+	<div class="img img-07"></div> 
+	<div class="img img-08"></div> 
+	<div class="img img-09"></div> 
+	<div class="img img-10"></div> 
+	<div class="img img-11"></div> 
+	<div class="img img-12"></div> 
+	<div class="img img-13"></div> 
+	<div class="img img-14"></div> 
+	<div class="img img-15"></div> 
+	<div class="img img-16"></div> 
+	<div class="img img-17"></div> 
+	<div class="img img-18"></div> 
+	<div class="img img-19"></div> 
+	<div class="img img-20"></div> 
+	<div class="img img-21"></div> 
+	<div class="img img-22"></div> 
+	<div class="img img-23"></div> 
+	<div class="img img-24"></div> 
+	<div class="img img-25"></div> 
+	<div class="img img-26"></div> 
+	<div class="img img-27"></div> 
+	<div class="img img-28"></div> 
+	<div class="img img-29"></div> 
+</body>
+</html>

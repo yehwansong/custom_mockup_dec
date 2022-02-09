@@ -15,9 +15,9 @@ z<!DOCTYPE html>
     var fb_ready = false
     onLoadFinish()
 			$('.lds-dual-ring').hide()
-			setTimeout(function(){
+			// setTimeout(function(){
 				$('.alert').addClass('noalert')
-			},12000)
+			// },12000)
 			function shuffle(array) {
 			  let currentIndex = array.length,  randomIndex;
 
@@ -192,10 +192,10 @@ var counter = 0
 
 									for (var i = 5; i >= 1; i--) {
 										if(i>values.count){
-									$('.img_od_'+values.count).addClass('not_act')
+									$('.img_od_'+i).addClass('not_act')
 
 										}else{
-									$('.img_od_'+values.count).removeClass('not_act')
+									$('.img_od_'+i).removeClass('not_act')
 										}
 									}
             }
@@ -271,7 +271,7 @@ var counter = 0
 		.img_7{
 		    width: 39%;
 		    right: 15%;
-		    bottom: 11%;
+		    bottom: 41%;
 		    transform: rotate(191deg);
 			transition: 0.25s ease-out
 		}
@@ -279,7 +279,7 @@ var counter = 0
 		    width: 90%;
 		    transform: rotate(-35deg);
 		    left: -21%;
-		    bottom: 14%;
+		    bottom: 34%;
 			transition: 0.45s ease-out
 
 		}
@@ -322,7 +322,7 @@ var counter = 0
 			transition: 0.55s ease-out
 		}
 		.not_act { 
-			transform: translateY(-100vh) !important;
+			transform: translateY(-300vh) !important;
 		 }
 		 .alert{
     position: fixed;
@@ -390,7 +390,7 @@ var counter = 0
 .wrap{
 	position: absolute;
 	left: 0;
-	top: 100vh;
+	top: -100vh;
 	width: 100%;
 	height: 300vh
 }
