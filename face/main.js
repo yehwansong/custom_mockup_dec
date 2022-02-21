@@ -1,4 +1,3 @@
-
 $('document').ready(function(){
     currentcorner = -1;
 
@@ -10,7 +9,6 @@ $('document').ready(function(){
     width_array = [5.33, 3.46, 1.62, 5.75, 2.22, 6.7, 1.62, 5.4, 1.45, 1.98]
     height_array = [7.2, 3.77, 3.49, 3.28, 8.57, 2.54, 5.54, 5.72, 5.29]
 
-    corners = [100, 100, 300, 100, 100, 300, 300, 300];
     corner_array =  Array(10)
     for (var i = corner_array.length - 1; i >= 0; i--) {
         corner_array[i] = Array(9)
@@ -21,35 +19,13 @@ $('document').ready(function(){
 
 
             for (var i = width_array.length - 1; i >= 0; i--) {
-                // $('.img_x_'+i).css({'width':get_width(i)+'px'})
-                // $('.img_x_'+i).css({'left':get_left(i)+'px'})
+                $('.img_x_'+i).css({'width':get_width(i)+'px'})
+                $('.img_x_'+i).css({'left':get_left(i)+'px'})
                 for (var k = corner_array[i].length - 1; k >= 0; k--) {
-                    corner_array[i][k][0] = get_left(i)
-                    corner_array[i][k][2] = get_left(i) + get_width(i)
-                    corner_array[i][k][4] = get_left(i)
-                    corner_array[i][k][6] = get_left(i) + get_width(i)
                     if(k == 0 && i == 0){
                         for (var l = height_array.length - 1; l >= 0; l--) {
-                            // $('.img_y_'+l).css({'height':get_height(l)+'px'})
-                            // $('.img_y_'+l).css({'top':get_top(l)+'px'})
-                            for (var m = corner_array.length - 1; m >= 0; m--) {
-                                corner_array[m][l][1] = get_top(l)
-                                corner_array[m][l][3] = get_top(l)
-                                corner_array[m][l][5] = get_top(l) + get_height(l)
-                                corner_array[m][l][7] = get_top(l) + get_height(l)
-                                            console.log(l)
-                                            console.log(m)
-                                if(l==0 && m == 0){
-                                            console.log(corner_array.length)
-                                    for (var a = corner_array.length - 1; a >= 0; a--) {
-                                            console.log( corner_array[a].length)
-                                        for (var b = corner_array[a].length - 1; b >= 0; b--) {
-                                            transform2d(a,b);
-                                            // console.log('hey')
-                                        }
-                                    }
-                                }
-                            }
+                            $('.img_y_'+l).css({'height':get_height(l)+'px'})
+                            $('.img_y_'+l).css({'top':get_top(l)+'px'})
                         }
                     }
                 }
@@ -98,6 +74,7 @@ $('document').ready(function(){
     var ori_y = 0
     var dis_x = 0
     var dis_y = 0
+    var dis_angle = 0
     var selected_x = 0
     var selected_y = 0
     var selected = null
@@ -105,93 +82,94 @@ $('document').ready(function(){
     var selected_ori_y = null
     var selected_width = 0
     var selected_height = 0
+    var org_left
+    var org_top
+    var selectedtouch = false
     $('.img').bind('touchstart', function(e) {
         selected_x = parseInt($(this).attr('class').split('img_x_')[1].split(' ')[0])
         selected_y = parseInt($(this).attr('class').split('img_y_')[1].split(' ')[0])
+
+
+        if((selected_x == 7 && selected_y ==3)||
+            (selected_x == 3 && selected_y ==3)||
+            (selected_x == 5 && selected_y ==6)||
+            (selected_x == 9 && selected_y ==4)||
+            (selected_x == 0 && selected_y ==4)||
+            (selected_x == 5 && selected_y ==2)){
+            selectedtouch = true
+        }else{
+            selectedtouch = false
+        }
         selected = $(this)
-        selected_ori_x = corner_array[selected_x][selected_y][0]
-        selected_ori_y = corner_array[selected_x][selected_y][1]
-        selected_width = corner_array[selected_x][selected_y][2]-corner_array[selected_x][selected_y][0]
-        selected_height = corner_array[selected_x][selected_y][5]-corner_array[selected_x][selected_y][1]
+        org_left = selected.offset().left
+        org_top = selected.offset().top
     })
     $(document).bind('touchmove', function(e) {
+    if(selectedtouch){
         init = false
-        console.log('fk')
         e.preventDefault();
 
         pos_x = e.originalEvent.touches[0].pageX
         pos_y = e.originalEvent.touches[0].pageY
         dis_x = pos_x - ori_x
         dis_y = pos_y - ori_y
+        dis_angle = get_angle(pos_x, pos_y, ori_x, ori_y)
+        // console.log(dis_x)
+        // console.log(dis_y)
+        // console.log(dis_angle)
 
-        // selected.css({'left':selected_ori_x+dis_x+'px'})
-        // selected.css({'top':selected_ori_y+dis_y+'px'})
-
-        var x_1 = selected_ori_x+dis_x
-        var x_2 = selected_ori_x+dis_x + selected_width
-        var y_1 = selected_ori_y+dis_y
-        var y_2 = selected_ori_y+dis_y +selected_height
-
-        corner_array[selected_x-1][selected_y-1][6] = x_1
-        corner_array[selected_x-1][selected_y-1][7] = y_1
-        corner_array[selected_x+0][selected_y-1][4] = x_1
-        corner_array[selected_x+0][selected_y-1][5] = y_1
-        corner_array[selected_x-1][selected_y-0][2] = x_1
-        corner_array[selected_x-1][selected_y-0][3] = y_1
-
-        corner_array[selected_x+0][selected_y-1][6] = x_2
-        corner_array[selected_x+0][selected_y-1][7] = y_1
-        corner_array[selected_x+1][selected_y-1][4] = x_2
-        corner_array[selected_x+1][selected_y-1][5] = y_1
-        corner_array[selected_x+1][selected_y-0][0] = x_2
-        corner_array[selected_x+1][selected_y-0][1] = y_1
+         selected.css({'left':(org_left + dis_x)+'px'})
+         selected.css({'top':(org_top + dis_y)+'px'})
+         var k1 = -1*(get_angle(
+                    get_left(selected_x),
+                    get_top(selected_y-1),
+                    selected.offset().left,
+                    selected.offset().top
+                  ) - 90)
+        var a = selected.offset().top-get_top(selected_y-1)
+        var b = get_height(selected_y-1)
 
 
-        corner_array[selected_x-1][selected_y-0][6] = x_1
-        corner_array[selected_x-1][selected_y-0][7] = y_2
-        corner_array[selected_x-1][selected_y+1][2] = x_1
-        corner_array[selected_x-1][selected_y+1][3] = y_2
-        corner_array[selected_x+0][selected_y+1][0] = x_1
-        corner_array[selected_x+0][selected_y+1][1] = y_2
+         $('.img_x_'+(selected_x)+'_y_'+(selected_y-1)).css({'transform':'skew('+k1+'deg) scaleY('+a/b+')'})
+
+         var k2 = -1*(get_angle(
+                    get_left(selected_x),
+                    get_top(selected_y+1)+get_height(selected_y+1),
+                    selected.offset().left,
+                    selected.offset().top+get_height(selected_y)
+                    ) - 90)
+         console.log(k2)
+        var a = (get_top(selected_y+1)+get_height(selected_y+1)) - (selected.offset().top+get_height(selected_y))
+        var b = get_height(selected_y+1)
+         $('.img_x_'+(selected_x)+'_y_'+(selected_y+1)).css({'transform-origin':'left bottom'})
+         $('.img_x_'+(selected_x)+'_y_'+(selected_y+1)).css({'transform':'skewX('+k2+'deg) scaleY('+a/b+')'})
 
 
-        corner_array[selected_x+1][selected_y-0][4] = x_2
-        corner_array[selected_x+1][selected_y-0][5] = y_2
-        corner_array[selected_x+0][selected_y+1][2] = x_2
-        corner_array[selected_x+0][selected_y+1][3] = y_2
-        corner_array[selected_x+1][selected_y+1][0] = x_2
-        corner_array[selected_x+1][selected_y+1][1] = y_2
-
-        corner_array[selected_x+0][selected_y-0][0] = x_1
-        corner_array[selected_x+0][selected_y-0][1] = y_1
-        corner_array[selected_x+0][selected_y-0][2] = x_2
-        corner_array[selected_x+0][selected_y-0][3] = y_1
-        corner_array[selected_x+0][selected_y-0][4] = x_1
-        corner_array[selected_x+0][selected_y-0][5] = y_2
-        corner_array[selected_x+0][selected_y-0][6] = x_2
-        corner_array[selected_x+0][selected_y-0][7] = y_2
-        transform2d(selected_x-1,selected_y-1);
-        transform2d(selected_x-1,selected_y-0);
-        transform2d(selected_x-1,selected_y+1);
-        transform2d(selected_x-0,selected_y-1);
-        transform2d(selected_x-0,selected_y-0);
-        transform2d(selected_x-0,selected_y+1);
-        transform2d(selected_x+1,selected_y-1);
-        transform2d(selected_x+1,selected_y-0);
-        transform2d(selected_x+1,selected_y+1);
-
-    });
-
-    $(document).bind('touchmove mousemove', function (e) {
-
-        currentY = e.originalEvent.touches ?  e.originalEvent.touches[0].pageY : e.pageY;
-        currentX = e.originalEvent.touches ?  e.originalEvent.touches[0].pageX : e.pageX;
+         var k3 = (get_angle(
+                    get_left(selected_x-1),
+                    get_top(selected_y),
+                    selected.offset().left,
+                    selected.offset().top
+                    ))
+        var a = selected.offset().left-get_left(selected_x-1)
+        var b = get_width(selected_x-1)
+         $('.img_x_'+(selected_x-1)+'_y_'+(selected_y)).css({'transform':'skewY('+k3+'deg) scaleX('+a/b+')'})
 
 
+         var k4 =  (get_angle(
+                    get_left(selected_x+1)+get_width(selected_x+1),
+                    get_top(selected_y),
+                    selected.offset().left+get_width(selected_x),
+                    selected.offset().top
+                    ))
+        var a = (get_left(selected_x+1)+get_width(selected_x+1))-(selected.offset().left+selected.outerWidth())
+        var b = get_width(selected_x+1)
+         $('.img_x_'+(selected_x+1)+'_y_'+(selected_y)).css({'transform-origin':'right top'})
+         $('.img_x_'+(selected_x+1)+'_y_'+(selected_y)).css({'transform':'skewY('+k4+'deg) scaleX('+a/b+')'})
+
+    }
 
     });
-
-
 
     $(document).bind('touchstart', function (e) {
 
@@ -203,7 +181,10 @@ $('document').ready(function(){
     });
 
 
+    function get_distance(x1,y1,x2,y2){var a = x1 - x2;
+var b = y1 - y2;
 
+var c = Math.sqrt( a*a + b*b );}
     function transform2d(x, y) {
         counter++
         var elt = document.getElementsByClassName("img_x_"+(x)+"_y_"+(y))[0];
@@ -261,7 +242,7 @@ $('document').ready(function(){
         elt.style.transform = t;
     }
     function get_angle(x1,y1,x2,y2){
-        return Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+        return Math.atan2(y2 - y1, x2 - x1) * 180 / Math.PI;
     }
     // returns true if the line from (a,b)->(c,d) intersects with (p,q)->(r,s)
 function intersects(a,b,c,d,p,q,r,s) {
