@@ -17,24 +17,52 @@
 
         }
         body{background-color: black
-            transform:scale(1.1);
+            /*transform:scale(1.1);*/
         }
         body,html,.img{
             touch-action: none;
             width: 100vw;
             height: 100%;
         }
-        .img{background-position: left top;
+        .img{
+            background-position: left top;
 background-size: 100% 100%;
-position: fixed;
+/*position: relative;*/
 transform-origin: left top;
-border: 1px solid black;
+/*border: 1px solid black;*/
+position: fixed;
 opacity: 0.8;
-            transition:0.25s opacity ease-out;
+            /*transition:0.25s opacity ease-out;*/
 /* transform: rotate(10deg); */
         }
+.img_x_7_y_3{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
+.img_x_3_y_3{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
 
 
+.img_x_5_y_6{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
+
+.img_x_9_y_4{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
+.img_x_0_y_4{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
+
+.img_x_5_y_2{
+    opacity: 1;
+    z-index: 100000000000000000000000000000000
+}
 .img_x_0.img_y_0{background-image:url(images/face_01.png);}
 .img_x_1.img_y_0{background-image:url(images/face_02.png);}
 .img_x_2.img_y_0{background-image:url(images/face_03.png);}
@@ -125,19 +153,29 @@ opacity: 0.8;
 .img_x_7.img_y_8{background-image:url(images/face_88.png);}
 .img_x_8.img_y_8{background-image:url(images/face_89.png);}
 .img_x_9.img_y_8{background-image:url(images/face_90.png);}
+.img_count_0{margin-top: 0vh;}
+/*.img_count_1{margin-top: -100vh;}*/
+/*.img_count_2{margin-top: -100vh;}*/
+/*.img_count_3{margin-top: -100vh;}*/
+/*.img_count_4{margin-top: -100vh;}*/
+/*.img_count_5{margin-top: -100vh;}*/
+/*.img_count_6{margin-top: -100vh;}*/
+/*.img_count_7{margin-top: -100vh;}*/
+/*.img_count_8{margin-top: -100vh;}*/
+/*.img_count_9{margin-top: -100vh;}*/
     </style>
   </head>
   <body>
-    <div class="img img_x_0 img_y_0 img_x_0_y_0"></div>
-    <div class="img img_x_1 img_y_0 img_x_1_y_0"></div>
-    <div class="img img_x_2 img_y_0 img_x_2_y_0"></div>
-    <div class="img img_x_3 img_y_0 img_x_3_y_0"></div>
-    <div class="img img_x_4 img_y_0 img_x_4_y_0"></div>
-    <div class="img img_x_5 img_y_0 img_x_5_y_0"></div>
-    <div class="img img_x_6 img_y_0 img_x_6_y_0"></div>
-    <div class="img img_x_7 img_y_0 img_x_7_y_0"></div>
-    <div class="img img_x_8 img_y_0 img_x_8_y_0"></div>
-    <div class="img img_x_9 img_y_0 img_x_9_y_0"></div>
+    <div class="img img_x_0 img_y_0 img_x_0_y_0 img_count_0"></div>
+    <div class="img img_x_1 img_y_0 img_x_1_y_0 img_count_1"></div>
+    <div class="img img_x_2 img_y_0 img_x_2_y_0 img_count_2"></div>
+    <div class="img img_x_3 img_y_0 img_x_3_y_0 img_count_3"></div>
+    <div class="img img_x_4 img_y_0 img_x_4_y_0 img_count_4"></div>
+    <div class="img img_x_5 img_y_0 img_x_5_y_0 img_count_5"></div>
+    <div class="img img_x_6 img_y_0 img_x_6_y_0 img_count_6"></div>
+    <div class="img img_x_7 img_y_0 img_x_7_y_0 img_count_7"></div>
+    <div class="img img_x_8 img_y_0 img_x_8_y_0 img_count_8"></div>
+    <div class="img img_x_9 img_y_0 img_x_9_y_0 img_count_9"></div>
 
     <div class="img img_x_0 img_y_1 img_x_0_y_1"></div>
     <div class="img img_x_1 img_y_1 img_x_1_y_1"></div>
@@ -227,7 +265,7 @@ opacity: 0.8;
     <div class="img img_x_8 img_y_8 img_x_8_y_8"></div>
     <div class="img img_x_9 img_y_8 img_x_9_y_8"></div>
 
-    <script type="text/javascript" src="perspective-transform.js"></script>
+    <!-- <script type="text/javascript" src="perspective-transform.js"></script> -->
     <script type="text/javascript" src="main.js"></script>
 </body>
 </html>
